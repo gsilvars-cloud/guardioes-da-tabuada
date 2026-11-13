@@ -647,6 +647,43 @@ body{--ch:64px;--kh:34px;--hud:17px}
 .mapa .pin .gf{position:absolute;right:-22px;top:-20px;height:clamp(30px,10vh,46px);width:auto;animation:vbob2 1.4s ease-in-out infinite;pointer-events:none;filter:drop-shadow(0 3px 2px rgba(0,0,0,.4))}
 @keyframes vbob2{50%{transform:translateY(-5px)}}
 @media (orientation:portrait){.homegrid{grid-template-columns:1fr}}
+
+/* ---------- etapa 4: álbum de figurinhas, Evolução Dourada, Tempestade de Tinta ---------- */
+#albTabs button{position:relative}
+#albTabs button.done{border-color:var(--gold);color:var(--gold)}
+#albTabs button.done.on{color:var(--ink)}
+#albTabs button.nv::after{content:"";position:absolute;right:-4px;top:-4px;width:11px;height:11px;border-radius:50%;background:#ff4d5e;border:2px solid #120f30}
+.albhead{display:flex;align-items:center;gap:12px;margin:12px 0 8px;background:rgba(0,0,0,.22);border:1px solid var(--line);border-radius:14px;padding:8px 12px}
+.albhead img{height:58px;width:auto;flex:none}
+.albhead img.gold,.card.gold .pic,.rw img.gold{filter:sepia(.55) saturate(2.3) hue-rotate(-12deg) brightness(1.12) drop-shadow(0 0 6px #ffcf3f)}
+.albhead .tx{flex:1;min-width:0;font-size:13px;color:var(--muted);display:grid;gap:5px}
+.albhead .tx b{color:var(--text);font-size:15px}
+.albpage{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.stk-card{position:relative;aspect-ratio:3/4;border-radius:12px;border:2px dashed #5a54b8;background:rgba(18,15,48,.55);color:#8f89d6;display:grid;grid-template-rows:auto auto 1fr;justify-items:center;align-content:start;padding:6px 4px 14px;gap:1px;overflow:hidden;min-width:0}
+.stk-card .eq{font-weight:900;font-size:12px;white-space:nowrap}
+.stk-card .res{font-family:var(--f-display);font-weight:400;font-size:clamp(17px,5.4vh,26px);line-height:1}
+.stk-card .dots{display:grid;gap:1.5px;align-self:center;width:min(74%,calc(var(--c)*11px))}
+.stk-card .dots i{aspect-ratio:1;border-radius:50%;background:currentColor;opacity:.6}
+.stk-card.k1,.stk-card.k2{border:2px solid #c9c9d6;background:repeating-linear-gradient(45deg,#f6f6fa 0 6px,#ececf3 6px 7px);color:#77778c}
+.stk-card.k3{border:2px solid #fff;background:linear-gradient(0deg,hsl(var(--hue) 85% 64%) 0 50%,#f4f4f8 50%);color:#2a2266}
+.stk-card.k4{border:3px solid #ffcf3f;background:linear-gradient(160deg,hsl(var(--hue) 88% 64%),hsl(calc(var(--hue) + 32) 82% 48%));color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.35);box-shadow:0 0 10px rgba(255,207,63,.5)}
+.stk-card.k5{border:3px solid #fff;background:linear-gradient(120deg,#ff8ad8,#ffd36a,#7dd3ff,#c77dff,#ff8ad8);background-size:300% 100%;animation:rb 4s linear infinite;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.45);box-shadow:0 0 14px rgba(255,255,255,.7)}
+.stk-card .star{position:absolute;top:2px;right:5px;color:#fff6aa;font-size:13px}
+.stk-card em{position:absolute;left:0;right:0;bottom:1px;font-style:normal;font-size:9px;font-weight:900;color:#b03a2e;background:#ffffffb0;text-shadow:none}
+.stk-card em.nv{color:#fff;background:#ff4d5e;bottom:auto;top:42%;transform:rotate(-8deg);font-size:11px;padding:1px 0}
+.stk-card.novo{animation:stickin .6s cubic-bezier(.2,1.6,.4,1) both}
+.stk-card.pick{outline:3px solid #fff;outline-offset:1px}
+@keyframes stickin{from{transform:scale(1.8) rotate(-14deg);opacity:0}}
+.card.gold{border-color:#ffcf3f;box-shadow:inset 0 2px 0 rgba(255,255,255,.3),0 4px 0 #120f30,0 0 16px rgba(255,207,63,.85)}
+.card.gold::before{content:"👑";position:absolute;left:50%;top:-11px;transform:translateX(-50%);font-size:14px;z-index:4}
+.storm{position:absolute;right:10px;bottom:calc(22px + min(env(safe-area-inset-bottom,0px),10px));z-index:6;width:clamp(104px,18vw,160px);height:calc(var(--hud)*2.1);border-radius:999px;border:2px solid #ffffff66;background:rgba(14,10,50,.62);color:#fff;overflow:hidden;padding:0;font-size:calc(var(--hud)*.66);font-weight:900}
+.storm .fill{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#3f8cff,#b84dff,#ff5fd2);width:0;transition:width .3s}
+.storm b{position:relative;text-shadow:0 1px 3px rgba(0,0,0,.7)}
+.storm.full{border-color:#fff;animation:bossPulse 1s ease-in-out infinite;box-shadow:0 0 18px rgba(184,77,255,.95)}
+.quiz.stormq{border-color:#ff5fd2;background:linear-gradient(170deg,rgba(46,34,140,.97),rgba(104,34,150,.97))}
+.stormbar{height:8px;border-radius:4px;background:#120f30;overflow:hidden}
+.stormbar b{display:block;height:100%;background:linear-gradient(90deg,#ff5fd2,#ffd36a)}
+.quiz.stormq:not(.ok):not(.bad) > .stormbar{grid-column:1}
 </style>
 
 <div class="app" id="app">
@@ -685,8 +722,14 @@ body{--ch:64px;--kh:34px;--hud:17px}
 
   <!-- GRIMÓRIO -->
   <section class="screen" id="book" hidden>
-    <header class="top"><h2 class="ttl">Grimório da Tabuada</h2></header>
-    <p class="sub">Cada quadrinho é uma runa. A de cima e a de baixo da mesma conta (7 × 8 e 8 × 7) são a mesma runa. Ela fica dourada quando você acerta <b>rápido</b>, em <b>dias diferentes</b>.</p>
+    <header class="top"><h2 class="ttl">Álbum da Tabuada</h2></header>
+    <p class="sub">Cada conta é uma <b>figurinha</b>. Ela começa a lápis, ganha cor quando você acerta e fica <b>dourada</b> quando acerta rápido em dias diferentes. Complete uma página para dar a <b>Evolução Dourada</b> ao herói dela.</p>
+    <div class="chips" id="albTabs"></div>
+    <div class="albhead" id="albHead"></div>
+    <div class="albpage" id="albPage"></div>
+    <p class="cellinfo" id="albInfo">Toque numa figurinha para ver o truque dela.</p>
+    <h3 class="sec">Tabela completa</h3>
+    <p class="sub">Cada quadrinho é uma conta; 7 × 8 e 8 × 7 são a mesma.</p>
     <div class="bookstats" id="bookStats"></div>
     <div class="tgrid-wrap"><div class="tgrid" id="tgrid"></div></div>
     <div class="legend">
@@ -769,6 +812,7 @@ body{--ch:64px;--kh:34px;--hud:17px}
     </div>
     <div class="bt-hint" id="btHint"><b>Chame um herói!</b><span>Toque numa carta e acerte a runa <i class="arrow">👈</i></span></div>
     <div class="streak" id="streak"></div>
+    <button class="storm" id="stormBtn" type="button" hidden aria-label="Tempestade de Tinta"><span class="fill" id="stormFill"></span><b id="stormTxt">Tempestade</b></button>
     <div class="bt-bottom" id="btBottom"><div class="hand" id="hand"></div></div>
     <div class="mana" id="mana"><span class="drop" id="manaNum">5</span><span class="track"><b id="manaFill"></b></span></div>
     <div class="quiz" id="quiz" hidden></div>
@@ -782,7 +826,7 @@ body{--ch:64px;--kh:34px;--hud:17px}
   <nav class="tabbar" id="tabbar">
     <button type="button" data-tab="home" class="on"><span class="ic">⚔️</span>Batalha</button>
     <button type="button" data-tab="deck"><span class="ic">🃏</span>Baralho</button>
-    <button type="button" data-tab="book"><span class="ic">📖</span>Tabuada</button>
+    <button type="button" data-tab="book"><span class="ic">📖</span>Álbum</button>
     <button type="button" data-tab="settings"><span class="ic">⚙️</span>Ajustes</button>
   </nav>
   <div class="intro" id="intro" hidden><canvas id="introCv"></canvas>
@@ -1306,6 +1350,7 @@ const canUp = id => { const o = S.cards[id], nd = need(id); return !!(o && nd &&
 function refreshBadges(){
   const any = ORDER.some(canUp);
   $('tabbar').querySelector('[data-tab="deck"]').classList.toggle('dot', any);
+  $('tabbar').querySelector('[data-tab="book"]').classList.toggle('dot', !!(S.albNew && S.albNew.length));
 }
 function streakPips(){
   const s = S.streak % STREAK_CHEST;
@@ -1526,7 +1571,7 @@ function showChestUI(ch, R, done){
 let swapping = null;
 function cardHTML(id, extra){
   const c = CARDS[id], own = S.cards[id], bd = bandOfCard(id), lv = own ? own.lvl : 0, nd = need(id), can = own && nd && own.n >= nd;
-  return `<button type="button" class="card dk b${bd} ${own ? 'l' + lv : 'locked'} ${can ? 'can' : ''} ${extra || ''}" data-id="${id}" aria-label="${c.name}${own ? ', nível ' + lv : ', bloqueado'}, custo ${c.cost}, runa de ${BAND_NAME[bd]}">
+  return `<button type="button" class="card dk b${bd} ${own ? 'l' + lv : 'locked'} ${own && isGolden(id) ? 'gold' : ''} ${can ? 'can' : ''} ${extra || ''}" data-id="${id}" aria-label="${c.name}${own ? ', nível ' + lv : ', bloqueado'}, custo ${c.cost}, runa de ${BAND_NAME[bd]}">
     <span class="cost">${c.cost}</span>${heroIcon(id)}${own ? `<span class="lvb l${lv}">${lv}</span>` : ''}${lv >= 4 ? '<span class="spk">✦</span>' : ''}<span class="nm">${c.name}</span>
     ${own ? `<span class="prog ${nd ? '' : 'max'}"><i style="width:${nd ? Math.min(100, own.n/nd*100) : 100}%"></i><em>${nd ? own.n + '/' + nd : 'MÁX'}</em></span>${can ? '<span class="upar">⬆</span>' : ''}` : `<span class="lock">🔒<small>Ilha ${c.arena + 1}</small></span>`}</button>`;
 }
@@ -1583,6 +1628,7 @@ function openCard(id, up){
     ${up ? `<p class="lvup-msg">⬆ ${c.name} subiu para o nível ${lvl}!</p>` : ''}
     <p class="desc">${c.desc}</p>
     <p class="desc" style="color:var(--gold)">✨ ${c.ability}</p>
+    ${HERO_TAB[id] ? `<p class="desc" style="font-size:13px">${isGolden(id) ? '👑 <b>Evolução Dourada</b> conquistada: +8% de força.' : `👑 Herói da <b>tabuada do ${HERO_TAB[id]}</b>: deixe douradas as 10 figurinhas dessa página no Álbum para a Evolução Dourada (+8% de força).`}</p>` : ''}
     <p class="desc" style="color:var(--muted);font-size:13px">${RUNE_NOTE[bd]}</p>
     <div class="rel"><p class="g">Bom contra: ${c.good}</p><p class="b">Cuidado com: ${c.bad}</p></div>
     </div><div class="sh-r">
@@ -1608,7 +1654,43 @@ $('modal').addEventListener('click', e => { if (e.target === $('modal')) closeMo
 const stClass = key => 's' + stateOf(S.facts[key]);
 const secTxt = ms => (ms/1000).toFixed(1).replace('.', ',') + ' s';
 let bookTab = 'tab';
+// ---------- álbum: uma página por tabuada, uma figurinha por conta ----------
+const HERO_TAB = {arqueira:2, maga:5, tanque:10, bruma:3, fuinha:4, brasa:9, gelido:6, dinamite:7, trovao:8};
+const HUE = [0, 210, 150, 330, 265, 45, 190, 25, 285, 5, 120];
+const tabHero = n => ORDER.find(id => HERO_TAB[id] === n);
+const tabFacts = n => Array.from({length:10}, (_, i) => FACT_BY[keyOf(n, i + 1)]);
+const tabDone = n => tabFacts(n).every(f => isMastered(f.key));
+const isGolden = id => !!HERO_TAB[id] && tabDone(HERO_TAB[id]);     // Evolução Dourada: a tabuada do herói inteira dominada
+let albN = 0;
+function stickerHTML(n, m){
+  const k = keyOf(n, m), f = S.facts[k], st = stateOf(f), x = Math.min(n, m), y = Math.max(n, m);
+  const retoque = st < 4 && f && f.ok >= 3 && f.errT.some(t => Date.now() - t < 7*DAY), novo = (S.albNew || []).includes(k);
+  const dots = st >= 1 ? `<span class="dots" style="--c:${y};grid-template-columns:repeat(${y},1fr)">${'<i></i>'.repeat(x*y)}</span>` : '';
+  return `<button type="button" class="stk-card k${st} ${novo ? 'novo' : ''}" data-a="${n}" data-b="${m}" style="--hue:${HUE[n]}" aria-label="${n} vezes ${m}, ${STATE_NAME[st]}">
+    <span class="eq">${n} × ${m}</span><span class="res">${st >= 1 ? n*m : '?'}</span>${dots}${st >= 4 ? '<span class="star">★</span>' : ''}${novo ? '<em class="nv">NOVA!</em>' : retoque ? '<em>pede retoque</em>' : ''}</button>`;
+}
+function renderAlbum(){
+  if (!albN){ albN = 2; for (let n = 2; n <= 10; n++) if (!tabDone(n)){ albN = n; break; } }
+  const nv = S.albNew || [];
+  $('albTabs').innerHTML = Array.from({length:10}, (_, i) => i + 1).map(n => `<button type="button" class="${n === albN ? 'on' : ''} ${tabDone(n) ? 'done' : ''} ${tabFacts(n).some(f => nv.includes(f.key)) ? 'nv' : ''}" data-n="${n}" aria-label="Página do ${n}">${n}</button>`).join('');
+  const fs = tabFacts(albN), got = fs.filter(f => isMastered(f.key)).length, col = fs.filter(f => stateOf(S.facts[f.key]) >= 1).length, h = tabHero(albN), own = h && S.cards[h];
+  $('albHead').innerHTML = `${h ? `<img class="${got === 10 ? 'gold' : ''}" alt="" src="${SPR[CARDS[h].spr][0].src}">` : ''}<span class="tx"><b>Página do ${albN}${h ? ' · herói: ' + CARDS[h].name : ''}</b>
+    <span class="pg ${got === 10 ? 'max' : ''}"><i style="width:${got*10}%"></i><em>${got}/10 douradas · ${col}/10 no álbum</em></span>
+    <span>${!h ? 'A página do 1 é só para aquecer.' : got === 10 ? `✨ Evolução Dourada conquistada: ${CARDS[h].name} luta 8% mais forte!` : `Deixe as 10 figurinhas douradas para ${CARDS[h].name} ganhar a Evolução Dourada${own ? '' : ' (quando você tiver esse herói)'}.`}</span></span>`;
+  $('albPage').innerHTML = Array.from({length:10}, (_, i) => stickerHTML(albN, i + 1)).join('');
+  if (nv.length){ const keys = fs.map(f => f.key); S.albNew = nv.filter(k => !keys.includes(k)); save(); }
+}
+$('albTabs').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; albN = +b.dataset.n; sfx('tap'); renderAlbum(); refreshBadges(); $('albInfo').textContent = 'Toque numa figurinha para ver o truque dela.'; });
+$('albPage').addEventListener('click', e => {
+  const b = e.target.closest('.stk-card'); if (!b) return; sfx('tap');
+  for (const el of $('albPage').querySelectorAll('.pick')) el.classList.remove('pick'); b.classList.add('pick');
+  const a = +b.dataset.a, m = +b.dataset.b, f = S.facts[keyOf(a, m)], st = stateOf(f);
+  $('albInfo').innerHTML = st === 0 ? `<b>${a} × ${m}</b> ainda não apareceu nas batalhas. Quando aparecer, a figurinha entra no álbum a lápis.`
+    : `<b>${a} × ${m} = ${a*m}</b> · ${STATE_NAME[st]}${f.n ? ` · ${f.ok} acerto${f.ok === 1 ? '' : 's'} em ${f.n}` : ''}<br>✏️ ${tipFor(a, m)}${st < 4 ? '<br>Para ficar dourada: acertar rápido em 3 dias diferentes.' : ''}`;
+  if (st >= 1) speak(falaConta(a, m));
+});
 function renderBook(){
+  renderAlbum();
   const m = masteryCount();
   const acc = S.stats.answered ? Math.round(S.stats.correct/S.stats.answered*100) : 0;
   // tabuada que mais precisa de treino
@@ -1753,8 +1835,9 @@ function startBattle(si, boss){
     ents:[], projs:[], parts:[], texts:[], fx:[], timers:[], clock:0, mana:[5, 5], hand:S.deck.slice(), queue:[], sel:null, quiz:null,
     streak:0, answered:0, correct:0, times:[], wrong:[], newMastered:0, timeScale:1, tsTarget:1, shake:0, paused:false, idSeq:1, rowN:[0, 0],
     inspired:false, perfect:0, revWins:0, locks:{}, newLeg:0, rn:{count:0, rev:[], vq:[], recent:[], newN:0, fastErr:0, calmLeft:0},
-    ai:{think:3.4}, result:null, crowns:[0, 0], cam:0, kills:[0, 0], flash:0, splats:[], says:[], hitstop:0, zoom:null, grafi:{pose:'oi', t:0}};
+    ai:{think:3.4}, result:null, crowns:[0, 0], cam:0, kills:[0, 0], flash:0, splats:[], says:[], hitstop:0, zoom:null, ink:0, storm:null, faces:{}, faced:{}, grafi:{pose:'oi', t:0}};
   B.aiLvl = cfg.lvl;
+  B.goldBefore = ORDER.filter(isGolden);
   if (boss) B.t = 180;
   B.towers = [mkTower(0, myLvl), mkTower(1, B.aiLvl)];
   if (boss){ const t = B.towers[1]; t.maxhp *= 1.2; t.hp = t.maxhp; }
@@ -1796,12 +1879,12 @@ const feetY = e => GY + (e.z || 0) + 6;
 
 /* ---------- heróis ---------- */
 function spawnHero(team, id, o){
-  const c = CARDS[id], k = LVK(o.lvl || 1), tb = (o.insp ? 1.25 : 1)*(o.rev ? 1.1 : 1);
+  const c = CARDS[id], gold = team === 0 && isGolden(id), k = LVK(o.lvl || 1), tb = (o.insp ? 1.25 : 1)*(o.rev ? 1.1 : 1)*(gold ? 1.08 : 1);
   const row = B.rowN[team]++ % 3;
   const e = {id:B.idSeq++, team, kind:'troop', card:id, x:SPAWNX[team] + (team === 0 ? 10 : -10), z:ROWS[row], row, r:c.r*(o.insp ? 1.12 : 1),
     hp:c.hp*k*tb, maxhp:c.hp*k*tb, dmg:c.dmg*k*tb, speed:c.speed, hs:c.hs, cd:.5, shots:0, face:team === 0 ? 1 : -1,
     alive:true, deadT:0, flash:0, hurtT:0, hurtCd:0, stun:0, hopT:0, spawnT:.85, spawnDur:.85, act:null, moving:false,
-    insp:!!o.insp, rev:!!o.rev, shield:o.shine ? c.hp*k*tb*.15 : 0, shieldT:o.shine ? 5 : 0, bob:rand(0, 6), lvl:o.lvl || 1, lv:clamp(Math.round(o.lvl || 1), 1, MAXLVL), fly:!!c.fly, boss:!!c.boss, slow:0, healAmt:(c.heal || 0)*k*tb};
+    insp:!!o.insp, rev:!!o.rev, shield:o.shine ? c.hp*k*tb*.15 : 0, shieldT:o.shine ? 5 : 0, bob:rand(0, 6), lvl:o.lvl || 1, lv:clamp(Math.round(o.lvl || 1), 1, MAXLVL), fly:!!c.fly, boss:!!c.boss, slow:0, gold, healAmt:(c.heal || 0)*k*tb};
   B.ents.push(e);
   return e;
 }
@@ -2357,6 +2440,7 @@ function aiUpdate(dt){
 function battleTick(dt){
   if (B.shake > 0) B.shake = Math.max(0, B.shake - dt*1.8);
   if (B.quiz && B.quiz.closeAt && performance.now() >= B.quiz.closeAt) closeQuiz();
+  if (B.storm){ const l = B.storm.endAt - performance.now(), sb = $('stormBar'); if (sb) sb.style.width = Math.max(0, l/(STORM_T*10)).toFixed(1) + '%'; if (l <= 0) endStorm(); }
   updateCam(dt);
   if (B.over){
     B.endT -= dt; if (B.zoom) B.zoom.t += dt; updateFx(dt*(B.zoom ? .4 : .6));
@@ -2401,6 +2485,7 @@ function endMatch(w, towerDown){
     B.crowns[0] = 1 + (hp >= .5 ? 1 : 0) + (hp >= .9 ? 1 : 0);
   }
   if (B.quiz) closeQuiz(true);
+  if (B.storm) endStorm();
   B.sel = null; renderHand();
   showBanner(w === 0 ? (B.boss ? 'Chefão vencido!' : 'Vitória!') : w === 1 ? 'Derrota' : 'Empate', w === 0 ? 'gold' : w === 1 ? 'red' : 'blue');
 }
@@ -2442,7 +2527,8 @@ function showEnd(){
   save();
   const wrong = [], seen = new Set();
   for (const q of B.wrong){ const k = keyOf(q.a, q.b); if (seen.has(k)) continue; seen.add(k); wrong.push(q); }
-  END = {won, lost, w, crowns, acc, avg, coins, dTr, cardWin, gotChest, newArena, top, boss, bossBeat, champ, bossName, prevStreak, wrong, si:B.si,
+  const newGold = ORDER.filter(id => isGolden(id) && !B.goldBefore.includes(id));
+  END = {newGold, won, lost, w, crowns, acc, avg, coins, dTr, cardWin, gotChest, newArena, top, boss, bossBeat, champ, bossName, prevStreak, wrong, si:B.si,
     answered:B.answered, correct:B.correct, perfect:B.perfect, newMastered:B.newMastered, revWins:B.revWins};
   renderEnd(END);
 }
@@ -2478,6 +2564,8 @@ function renderEnd(E){
     <p class="reward-line" style="margin:0">🪙 +${E.coins} moedas${E.newMastered ? ` · ⭐ ${E.newMastered} runa${E.newMastered > 1 ? 's' : ''} dominada${E.newMastered > 1 ? 's' : ''}` : ''}${E.revWins ? ` · 🔁 ${E.revWins} revanche${E.revWins > 1 ? 's' : ''}` : ''}</p>
     ${E.cardWin ? `<p class="reward-line" style="margin:0">${heroIcon(E.cardWin, 'cwpic')}+1 carta de ${CARDS[E.cardWin].name} 🃏</p>` : ''}
     ${streak}${bossMsg}${arena}${gateMsg}${hint}
+    ${E.newGold.length ? `<div class="newarena">👑 <b>Evolução Dourada!</b><br>${E.newGold.map(id => CARDS[id].name).join(' e ')} agora ${E.newGold.length > 1 ? 'lutam' : 'luta'} 8% mais forte.</div>` : ''}
+    ${E.newMastered ? `<p class="reward-line" style="margin:0">📒 ${E.newMastered} figurinha${E.newMastered > 1 ? 's douradas novas' : ' dourada nova'} no Álbum!</p>` : ''}
     ${accNote ? `<p class="grafi" style="margin:0;font-size:18px;color:#ffeab0">✏️ ${accNote}</p>` : ''}
     ${E.wrong.length ? `<div class="review"><h3>Para lembrar (volta na próxima batalha)</h3><div class="facts">${E.wrong.map(q => `<span>${q.a} × ${q.b} = ${q.a*q.b}<small>${tipFor(q.a, q.b)}</small></span>`).join('')}</div></div>` : (E.answered ? '<p class="reward-line" style="color:var(--green);margin:0">Nenhum erro na partida! 🌟</p>' : '')}
     <div class="endacts">${pend ? `<button class="btn-gold" type="button" id="chestBtn">🎁 Abrir baú${pend > 1 ? 's (' + pend + ')' : ''}</button>` : `<button class="btn-gold" type="button" id="againBtn">${E.boss && E.lost ? 'Tentar de novo' : 'Jogar de novo'}</button>`}<button class="btn-ghost" type="button" id="homeBtn">Menu</button></div>
@@ -2502,7 +2590,7 @@ function renderHand(){
 }
 function cardMini(id, i){
   const c = CARDS[id], bd = bandOfCard(id), lv = S.cards[id]?.lvl || 1;
-  return `<button type="button" class="card b${bd} l${lv}" data-slot="${i}" aria-label="${c.name}, nível ${lv}, ${c.cost} de tinta, runa de ${BAND_NAME[bd]}, tecla ${i + 1}"><span class="cost">${c.cost}</span>${heroIcon(id)}<span class="lvb l${lv}">${lv}</span>${lv === 4 ? '<span class="spk">✦</span>' : ''}<span class="nm">${c.name}</span></button>`;
+  return `<button type="button" class="card b${bd} l${lv} ${isGolden(id) ? 'gold' : ''}" data-slot="${i}" aria-label="${c.name}, nível ${lv}, ${c.cost} de tinta, runa de ${BAND_NAME[bd]}, tecla ${i + 1}"><span class="cost">${c.cost}</span>${heroIcon(id)}<span class="lvb l${lv}">${lv}</span>${lv === 4 ? '<span class="spk">✦</span>' : ''}<span class="nm">${c.name}</span></button>`;
 }
 function updateBattleHUD(){
   const m = B.mana[0];
@@ -2528,11 +2616,14 @@ function updateBattleHUD(){
   const msg = B.inspired ? '✨ O próximo herói vem INSPIRADO!' : next ? 'Mais uma certa e o próximo herói vem Inspirado!' : 'Acerte 5 seguidas: o herói vem Inspirado ✨';
   const html = `<span class="pips">${[0,1,2,3,4].map(k => `<i class="${k < s ? 'on' : ''}"></i>`).join('')}</span><span>${msg}</span>`;
   if (updateBattleHUD.last !== html){ updateBattleHUD.last = html; $('streak').innerHTML = html; $('streak').classList.toggle('hot', next); $('streak').classList.toggle('insp', B.inspired); }
+  const sb = $('stormBtn'), full = B.ink >= 1;
+  sb.hidden = B.ink <= 0 || !!B.storm || B.over; $('stormFill').style.width = (B.ink*100).toFixed(0) + '%';
+  if (sb.classList.contains('full') !== full){ sb.classList.toggle('full', full); $('stormTxt').textContent = full ? '🌩️ Tempestade!' : 'Tempestade'; if (full) sfx('chord'); }
 }
 
 /* ---------- tocar numa carta abre a runa ---------- */
 function selectSlot(i){
-  if (!B || B.over || B.intro > 0 || B.quiz || i >= B.hand.length) return;
+  if (!B || B.over || B.intro > 0 || B.quiz || B.storm || i >= B.hand.length) return;
   ensureAudio();
   const c = CARDS[B.hand[i]];
   if ((B.locks[B.hand[i]] || 0) > performance.now()){ showBanner('Respira… já volta!', 'blue small'); sfx('bad'); return; }
@@ -2552,12 +2643,71 @@ $('hand').addEventListener('pointerdown', e => {
 });
 
 
+/* ---------- Tempestade de Tinta: o golpe especial da criança ----------
+   A barra enche com os acertos (Perfeito enche o dobro). Cheia, vale 8 s de contas rápidas, só das que ela já sabe;
+   cada acerto lança um raio de tinta no lado rival. Errar não pune: só encerra. Não mexe no domínio das runas. */
+const STORM_T = 8;
+function stormPool(){
+  let p = FACTS.filter(f => stateOf(S.facts[f.key]) >= 4);
+  if (p.length < 6) p = p.concat(FACTS.filter(f => stateOf(S.facts[f.key]) === 3));
+  if (p.length < 6) p = p.concat(FACTS.filter(f => f.diff <= 2 && !p.includes(f)));
+  return p;
+}
+function startStorm(){
+  if (!B || B.over || B.quiz || B.storm || B.ink < 1 || B.intro > 0 || B.paused) return;
+  ensureAudio(); B.ink = 0;
+  B.storm = {endAt:performance.now() + STORM_T*1000, n:0, pool:stormPool(), lastKey:null, q:null};
+  B.tsTarget = .35; showBanner('Tempestade de Tinta!', 'pink'); sfx('turbo'); sfx('chord'); grafi('viva', 2.5);
+  $('quiz').hidden = false; stormNext();
+}
+function stormNext(){
+  const st = B.storm, pool = st.pool.filter(f => f.key !== st.lastKey), f = pool[Math.floor(Math.random()*pool.length)];
+  let a = f.a, b = f.b; if (Math.random() < .5) [a, b] = [b, a];
+  st.q = {a, b, ans:a*b, input:'', opts:null}; st.lastKey = f.key;
+  renderStorm();
+}
+function renderStorm(){
+  const st = B.storm, q = st.q, left = Math.max(0, st.endAt - performance.now())/1000;
+  let body;
+  if (S.settings.mode === 'opcoes'){ if (!q.opts) q.opts = makeOptions(q); body = `<div class="choices">${q.opts.map(v => `<button type="button" data-v="${v}">${v}</button>`).join('')}</div>`; }
+  else body = `<div class="keypad">${[1,2,3,4,5].map(n => `<button type="button" data-k="${n}">${n}</button>`).join('')}<button type="button" class="fn" data-k="back" aria-label="Apagar">⌫</button>${[6,7,8,9,0].map(n => `<button type="button" data-k="${n}">${n}</button>`).join('')}<button type="button" class="fn" data-k="ok" aria-label="Confirmar">✓</button></div>`;
+  $('quiz').className = 'quiz stormq';
+  $('quiz').innerHTML = `<div class="q-head"><span class="who"><b>🌩️ Tempestade de Tinta</b><span class="band rev">${st.n} raio${st.n === 1 ? '' : 's'}</span></span></div>
+    <div class="q-row"><span>${q.a} × ${q.b} =</span><span class="q-ans ${q.input ? '' : 'empty'}" id="qAns">${q.input || '?'}</span></div>
+    <div class="stormbar"><b id="stormBar" style="width:${(left/STORM_T*100).toFixed(1)}%"></b></div>` + body;
+}
+function stormBolt(){
+  const foes = B.ents.filter(e => e.alive && e.team === 1), tw = B.towers[1];
+  const tg = foes.length && Math.random() < .7 ? foes[Math.floor(Math.random()*foes.length)] : tw;
+  const x = tg.x + rand(-24, 24), gy = GY + rand(4, 30), dmg = 85*LVK(deckAvg());
+  B.projs.push({kind:'star', team:0, x0:x - 150, y0:GY - 330, x:x - 150, y:GY - 330, tx:x, ty:gy, t:0, dur:.3, arc:0, dmg, splash:70, ang:Math.atan2(gy - GY + 330, 150), trail:[], rot:rand(0, 6)});
+}
+function stormAnswer(val){
+  const st = B.storm; if (!st) return;
+  if (val === st.q.ans){ st.n++; stormBolt(); sfx('note', st.n % 5); stormNext(); } else { sfx('bad'); endStorm(); }
+}
+function stormKey(k){
+  const st = B.storm; if (!st) return; const q = st.q;
+  if (k === 'back') q.input = q.input.slice(0, -1);
+  else if (k === 'ok'){ if (q.input) stormAnswer(+q.input); return; }
+  else if (/^[0-9]$/.test(k)){ if (q.input.length >= 3) return; q.input += k; sfx('tap'); if (q.input.length >= String(q.ans).length){ stormAnswer(+q.input); return; } }
+  const el = $('qAns'); if (el){ el.textContent = q.input || '?'; el.classList.toggle('empty', !q.input); }
+}
+function endStorm(){
+  const st = B.storm; if (!st) return;
+  B.storm = null; B.tsTarget = 1; $('quiz').hidden = true; $('quiz').innerHTML = '';
+  if (!B.over) showBanner(st.n ? `${st.n} raio${st.n > 1 ? 's' : ''} de tinta!` : 'A tempestade passou', 'pink small');
+  if (st.n >= 5) grafi('viva', 1.5);
+}
+$('stormBtn').addEventListener('pointerdown', e => { e.preventDefault(); startStorm(); });
+
 /* ---------- a runa (a conta) ---------- */
 function openQuiz(slot, x, y){
   const id = B.hand[slot], c = CARDS[id];
   if (B.mana[0] < c.cost) return;
   const pk = pickRune(id);
   let [a, b] = pk.key.split('x').map(Number); if (Math.random() < .5) [a, b] = [b, a];
+  if (a !== b && B.faces[pk.key] === a + 'x' + b && pk.type !== 'present') [a, b] = [b, a];      // mostra a outra face da runa já acertada nesta batalha
   const R = B.rn, calm = !!S.settings.calm || R.calmLeft > 0;
   if (R.calmLeft > 0) R.calmLeft--;
   B.quiz = {slot, id, x, y, a, b, ans:a*b, input:'', t0:performance.now(), band:bandOfCard(id), key:pk.key, type:pk.type, pk,
@@ -2632,6 +2782,7 @@ function quizKey(k){
   if (q.input.length >= String(q.ans).length) checkAnswer(+q.input);
 }
 $('quiz').addEventListener('pointerdown', e => {
+  if (B && B.storm){ e.preventDefault(); const sk = e.target.closest('[data-k]'), sv = e.target.closest('[data-v]'); if (sk) stormKey(sk.dataset.k); else if (sv) stormAnswer(+sv.dataset.v); return; }
   if (!B || !B.quiz) return;
   const k = e.target.closest('[data-k]'); const v = e.target.closest('[data-v]');
   e.preventDefault();
@@ -2654,7 +2805,7 @@ function checkAnswer(val){
   S.recent.push(ok ? 1 : 0); if (S.recent.length > 10) S.recent.shift();
   if (ok){
     B.correct++; B.times.push(ms); R.fastErr = 0;
-    if (res.mastered) B.newMastered++;
+    if (res.mastered){ B.newMastered++; (S.albNew = S.albNew || []).push(q.key); }
     if (res.leg) B.newLeg++;
     finishOk(q, ms, res);
   } else {
@@ -2680,6 +2831,13 @@ function finishOk(q, ms, res){
   const perfect = qual === 'perfeito';
   B.mana[0] -= c.cost;
   if (perfect){ B.mana[0] = Math.min(10, B.mana[0] + (c.cost <= 2 ? .5 : 1)); B.perfect++; grafi('viva', 1.1); }
+  let twoFaces = false;
+  if (!present){
+    B.ink = Math.min(1, B.ink + (perfect ? .2 : .1));                         // enche a Tempestade de Tinta
+    const face = q.a + 'x' + q.b;
+    if (q.a !== q.b && B.faces[q.key] && B.faces[q.key] !== face && !B.faced[q.key]){ B.faced[q.key] = true; twoFaces = true; B.mana[0] = Math.min(10, B.mana[0] + 1); }
+    else if (!B.faces[q.key]) B.faces[q.key] = face;
+  }
   const insp = B.inspired; B.inspired = false;
   let newInsp = false;
   if (!present){ B.streak++; if (B.streak % 5 === 0){ B.inspired = true; newInsp = true; } }
@@ -2693,13 +2851,14 @@ function finishOk(q, ms, res){
   const bits = [];
   if (isRev) bits.push('<span class="gr">Viu? Errar é rascunho!</span> +10% de força');
   if (perfect) bits.push((isRev ? 'Perfeito também! ' : '') + '+' + (c.cost <= 2 ? '½' : '1') + ' de tinta 💧 · Brilho ✨');
+  if (twoFaces) bits.push(`🔁 Runa de duas faces: ${q.a} × ${q.b} = ${q.b} × ${q.a}! +1 de tinta 💧`);
   if (insp) bits.push('Este herói está INSPIRADO ✨');
   if (newInsp) bits.push('5 seguidas! O próximo herói vem INSPIRADO ✨');
   if (res && res.leg) bits.push('🌟 Runa LENDÁRIA!');
   else if (res && res.mastered) bits.push('⭐ Runa dominada!');
   if (present) bits.push('Ela volta daqui a pouco, sem a resposta.');
   q.msg = bits.join('<br>');
-  q.closeAt = performance.now() + (newInsp || isRev || (res && (res.mastered || res.leg)) ? 1100 : perfect ? 850 : 650);
+  q.closeAt = performance.now() + (twoFaces ? 1500 : 0) + (newInsp || isRev || (res && (res.mastered || res.leg)) ? 1100 : perfect ? 850 : 650);
   B.tsTarget = 1; B.sel = null;
   if (newInsp){ sfx('chord'); sfx('turbo'); showBanner('Inspiração! ✨', 'gold'); }
   else if (isRev) sfx('revanche');
@@ -2727,6 +2886,11 @@ function closeQuiz(silent){
 /* ---------- teclado ---------- */
 addEventListener('keydown', e => {
   if (cur !== 'battle' || !B) return;
+  if (B.storm){
+    if (/^[0-9]$/.test(e.key)){ e.preventDefault(); if (S.settings.mode === 'opcoes'){ const o = B.storm.q.opts; if (o && o[+e.key - 1] !== undefined) stormAnswer(o[+e.key - 1]); } else stormKey(e.key); }
+    else if (e.key === 'Backspace'){ e.preventDefault(); stormKey('back'); } else if (e.key === 'Enter'){ e.preventDefault(); stormKey('ok'); }
+    return;
+  }
   if (B.quiz){
     if (/^[0-9]$/.test(e.key)){ e.preventDefault(); if (S.settings.mode === 'opcoes'){ const i = +e.key - 1; if (B.quiz.opts && B.quiz.opts[i] !== undefined && B.quiz.state === 'ask') checkAnswer(B.quiz.opts[i]); } else quizKey(e.key); }
     else if (e.key === 'Backspace'){ e.preventDefault(); quizKey('back'); }
@@ -3024,6 +3188,7 @@ function drawHero(u){
     if (u.rev){ ctx.strokeStyle = '#c77dff'; ctx.lineWidth = 2; ctx.beginPath(); ctx.ellipse(u.x, fy, sw + 12, 10, 0, 0, 7); ctx.stroke(); }
     if (lv >= 3) glow(u.x, fy - air - c.h*.45*bs, c.h*.62*bs, LVC[lv], lv >= 4 ? .3 : .2);
     if (u.boss) glow(u.x, fy - air - c.h*.45, c.h*.78, '#ff3a4a', .2 + .06*Math.sin(B.clock*4));
+    if (u.gold) glow(u.x, fy - air - c.h*.45*bs, c.h*.7*bs, '#ffcf3f', .3 + .08*Math.sin(B.clock*4 + u.bob));
     if (u.slow > 0) glow(u.x, fy - air - c.h*.4*bs, c.h*.55*bs, '#7fd8ff', .3);
     if (u.insp){ glow(u.x, fy - air - c.h*.45*bs, c.h*.7*bs, '#ffcf3f', .35 + .1*Math.sin(B.clock*5)); }
   }
@@ -3043,9 +3208,10 @@ function drawHero(u){
       if (fill < 1){ ctx.fillStyle = tm.l; ctx.globalAlpha = .85; ctx.fillRect(-f.fx*k, -hh*fill - 1.5, f.w*k, 3); ctx.globalAlpha = P.al; }
     }
   } else {
-    if (alive && !reduceMotion){ ctx.shadowColor = tm.c + 'cc'; ctx.shadowBlur = 5*dpr*SCL; }
+    if (alive && !reduceMotion){ ctx.shadowColor = (u.gold ? '#ffcf3f' : tm.c) + 'cc'; ctx.shadowBlur = (u.gold ? 9 : 5)*dpr*SCL; }
+    if (u.gold && 'filter' in ctx) ctx.filter = 'sepia(.5) saturate(2.2) hue-rotate(-12deg) brightness(1.1)';
     ctx.drawImage(f.img, -f.fx*k, -f.h*k, f.w*k, f.h*k);
-    ctx.shadowBlur = 0;
+    ctx.shadowBlur = 0; if (u.gold && 'filter' in ctx) ctx.filter = 'none';
   }
   if (u.flash > 0 && 'filter' in ctx){ ctx.globalAlpha = P.al*.65*(u.flash/.13); ctx.filter = 'brightness(2.6) saturate(.2)'; ctx.drawImage(f.img, -f.fx*k, -f.h*k, f.w*k, f.h*k); ctx.filter = 'none'; }
   ctx.restore();
@@ -3508,7 +3674,7 @@ else { window.__introOn = true; show('home'); INTRO.logo(); }
 requestAnimationFrame(loop);
 
 // gancho de teste (sem efeito no jogo)
-window.__GT = {get B(){ return B; }, get S(){ return S; }, SAVE_KEY, drawMap, isleProgress, INTRO, music, mus, splat, say, grafi, hitStop, startBattle, simStep, battleTick, aiUpdate, CARDS, STAGES, ARENA_AT, gateAt, LAST, RAMP, BOSS_LVL, rivalAt, bossPending, spawnBoss, SPECIAL, applySlow, stunU, deckAvg, deploy, spawnHero, FACTS, pickRune, recordAnswer, recordSeen, stateOf, bandOfFact, bandOfCard, rowMasteryTable, qualOf, adaptShift, falaConta, numPT, tipFor, makeOptions, dayNum, checkAnswer, openQuiz, finishOk, renderQuiz, isDue, save, renderArena, endMatch, selectSlot, dealDamage, pose, SPR, LW, GY, measureArena, worldFor, setWorld, rollChest, rollTier, CHEST, CHEST_ODDS, applyChest, openChest, openAll, showEnd, renderHome, renderDeck, openCard, show, need, canUp, pickW, grantArenaChests, load, get END(){ return END; }};
+window.__GT = {get B(){ return B; }, get S(){ return S; }, SAVE_KEY, startStorm, stormAnswer, endStorm, isGolden, tabDone, renderAlbum, HERO_TAB, drawMap, isleProgress, INTRO, music, mus, splat, say, grafi, hitStop, startBattle, simStep, battleTick, aiUpdate, CARDS, STAGES, ARENA_AT, gateAt, LAST, RAMP, BOSS_LVL, rivalAt, bossPending, spawnBoss, SPECIAL, applySlow, stunU, deckAvg, deploy, spawnHero, FACTS, pickRune, recordAnswer, recordSeen, stateOf, bandOfFact, bandOfCard, rowMasteryTable, qualOf, adaptShift, falaConta, numPT, tipFor, makeOptions, dayNum, checkAnswer, openQuiz, finishOk, renderQuiz, isDue, save, renderArena, endMatch, selectSlot, dealDamage, pose, SPR, LW, GY, measureArena, worldFor, setWorld, rollChest, rollTier, CHEST, CHEST_ODDS, applyChest, openChest, openAll, showEnd, renderHome, renderDeck, openCard, show, need, canUp, pickW, grantArenaChests, load, get END(){ return END; }};
 })();
 </script>
 <script>
