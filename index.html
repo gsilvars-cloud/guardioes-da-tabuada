@@ -3202,6 +3202,7 @@ new ResizeObserver(resizeArena).observe($('arenaWrap'));
 // cenário pintado de cada ilha (assets/bg/<bioma>.webp); sem a imagem, vale o cenário desenhado por código
 const BG_IMG = {};
 const BG_LANE = .715;                                   // fração da altura da pintura onde fica a pista
+const BG_LANES = {campo:.775};                          // pinturas novas (aquarela) têm a estrada em outra altura
 function bgImage(key){
   if (!(key in BG_IMG)){ const im = new Image(); im.src = 'assets/bg/' + key + '.webp'; BG_IMG[key] = im; }
   const im = BG_IMG[key]; return im.complete && im.naturalWidth ? im : null;
@@ -3226,7 +3227,7 @@ function drawBg(){
   B.painted = !!im;
   if (im){
     const s = Math.max(VW/im.naturalWidth, VH/im.naturalHeight), w = im.naturalWidth*s, h = im.naturalHeight*s;
-    ctx.drawImage(im, (VW - w)/2, clamp(GY + 22 - BG_LANE*h, VH - h, 0), w, h);
+    ctx.drawImage(im, (VW - w)/2, clamp(GY + 22 - (BG_LANES[B.st.biome] || BG_LANE)*h, VH - h, 0), w, h);
     return;
   }
   const g = ctx.createLinearGradient(0, 0, 0, GY + 10); g.addColorStop(0, p.sky[0]); g.addColorStop(1, p.sky[1]);
@@ -3626,7 +3627,7 @@ function drawMini(){
    ========================================================= */
 const AMB = (() => {
   const CFG = {
-    campo:  {grass:['#2c6a2a','#4a8f36','#7fb84e'], flower:['#fff3a0','#ff9ac0','#ffffff'], bits:'petal',   bitCol:['#ffd0e0','#ffffff','#ffe9a8'], nBits:22, birds:1,  fly:3, cloud:['#ffffff','#cfe1f4'], clouds:1,  rays:.11, shadow:.11, glint:'#f4ffd0'},
+    campo:  {grass:['#3d7a3a','#5e9a48','#93c46a'], flower:['#fff3a0','#ff9ac0','#ffffff'], bits:'petal',   bitCol:['#ffd0e0','#ffffff','#ffe9a8'], nBits:22, birds:1,  fly:3, cloud:['#ffffff','#cfe1f4'], clouds:1,  rays:.11, shadow:.11, glint:'#f4ffd0'},
     pantano:{grass:['#245a38','#3f8048','#74ad62'], flower:['#d9f0a0','#c8a0ff'],           bits:'firefly', bitCol:['#e9ff9a','#b8ffb0'],           nBits:18, birds:.5, fly:1, cloud:['#e4f2e4','#a9c9b0'], clouds:.6, rays:.07, shadow:.12, mist:.11, glint:'#dcffc0'},
     sombra: {grass:['#231d48','#3b3374','#665ab0'], flower:['#b08cff'],                     bits:'firefly', bitCol:['#c9b8ff','#8fd0ff'],           nBits:16, birds:.7, bats:1, fly:0, cloud:['#6a5fa8','#3a3270'], clouds:.5, rays:0,   shadow:.12, mist:.15, glint:'#b8a8ff'},
     vulcao: {grass:['#40241c','#63382a','#96583a'], flower:['#ffb060'],                     bits:'ember',   bitCol:['#ffb066','#ff7a3a','#ffe08a'], nBits:14, birds:0,  fly:0, cloud:['#8a5a52','#5a3530'], clouds:.4, rays:.05, shadow:.1,  glint:'#ffc890'},
@@ -3731,13 +3732,13 @@ const AMB = (() => {
       for (const m of st.mist){ m.x += m.v*dt; if (m.x - m.w > W) m.x = -m.w; ctx.globalAlpha = C.mist*(.7 + .3*Math.sin(t*.5 + m.w)); ctx.drawImage(st.light, m.x - m.w/2, m.y - 34, m.w, 68); }
       ctx.globalAlpha = 1;
     }
-    for (const o of st.back) tuftAt(ctx, st.tuft[o.i], o, t, .34);
+    ctx.globalAlpha = .8; for (const o of st.back) tuftAt(ctx, st.tuft[o.i], o, t, .34); ctx.globalAlpha = 1;
   }
 
   function front(ctx, W, H, gy, key){
     if (!st || st.key !== key) return;
     const t = st.t || 0, dt = still ? 0 : .0166, C = st.C, e = env(t);
-    for (const o of st.front) tuftAt(ctx, st.tuft[o.i], o, t, .4);
+    ctx.globalAlpha = .85; for (const o of st.front) tuftAt(ctx, st.tuft[o.i], o, t, .4); ctx.globalAlpha = 1;
     if (!still){
       // pétalas, vaga-lumes, brasas, neve, pólen ou runas levados pelo vento
       for (const b of st.bits){
