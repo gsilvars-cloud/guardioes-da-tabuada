@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" id="vp" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -29,6 +29,7 @@
 }
 [hidden]{display:none!important}
 html,body{height:100%}
+html{touch-action:pan-x pan-y;-webkit-text-size-adjust:100%;overscroll-behavior:none}   /* sem zoom por dois toques ou pinça: a tela do jogo não pode ampliar */
 body{margin:0;background:var(--night);background-image:radial-gradient(120% 60% at 50% 0%,#2b2670 0%,var(--night) 60%);color:var(--text);font-family:var(--f-ui);font-weight:700;overflow:hidden;-webkit-tap-highlight-color:transparent}
 button{font-family:inherit;color:inherit;cursor:pointer}
 button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
@@ -1026,6 +1027,13 @@ function load(){
   } catch(e) {}
   return d;
 }
+// iPhone: bloqueia o zoom da página (pinça e dois toques rápidos) e desfaz se o navegador ampliar mesmo assim
+for (const ev of ['gesturestart', 'gesturechange', 'gestureend']) document.addEventListener(ev, e => e.preventDefault(), {passive:false});
+document.addEventListener('dblclick', e => e.preventDefault(), {passive:false});
+document.addEventListener('touchmove', e => { if (e.touches && e.touches.length > 1) e.preventDefault(); }, {passive:false});
+if (window.visualViewport) visualViewport.addEventListener('resize', () => {
+  if (visualViewport.scale > 1.02){ const m = document.getElementById('vp'), c = m.content; m.content = c + ',minimum-scale=1'; setTimeout(() => { m.content = c; }, 60); }
+});
 let S = load();
 try { const raw = localStorage.getItem(SAVE_KEY); if (raw && readSave(SAVE_KEY)) localStorage.setItem(BAK_KEY, raw); } catch(e) {}   // guarda o save bom do começo da sessão
 function save(){ try { localStorage.setItem(SAVE_KEY, JSON.stringify(S)); } catch(e) {} }
