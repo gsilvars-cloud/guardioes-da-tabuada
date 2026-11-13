@@ -3202,7 +3202,7 @@ new ResizeObserver(resizeArena).observe($('arenaWrap'));
 // cenário pintado de cada ilha (assets/bg/<bioma>.webp); sem a imagem, vale o cenário desenhado por código
 const BG_IMG = {};
 const BG_LANE = .715;                                   // fração da altura da pintura onde fica a pista
-const BG_LANES = {campo:.775};                          // pinturas novas (aquarela) têm a estrada em outra altura
+const BG_LANES = {campo:.775, pantano:.79, vulcao:.8, arcano:.8};                          // pinturas novas (aquarela) têm a estrada em outra altura
 function bgImage(key){
   if (!(key in BG_IMG)){ const im = new Image(); im.src = 'assets/bg/' + key + '.webp'; BG_IMG[key] = im; }
   const im = BG_IMG[key]; return im.complete && im.naturalWidth ? im : null;
