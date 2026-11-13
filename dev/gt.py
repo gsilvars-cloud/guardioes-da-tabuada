@@ -6,7 +6,7 @@ def game(w=844, h=390, port=8793, dsf=1):
     time.sleep(.8)
     try:
         with sync_playwright() as p:
-            br = p.chromium.launch(); ctx = br.new_context(viewport={'width': w, 'height': h}, device_scale_factor=dsf, accept_downloads=True); pg = ctx.new_page(); pg.errs = []
+            br = p.chromium.launch(args=['--use-gl=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']); ctx = br.new_context(viewport={'width': w, 'height': h}, device_scale_factor=dsf, accept_downloads=True); pg = ctx.new_page(); pg.errs = []
             pg.on('pageerror', lambda e: pg.errs.append(str(e)))
             pg.goto(f'http://localhost:{port}/index.html'); pg.wait_for_timeout(1500)
             pg.evaluate("() => { if (window.__GT) __GT.S.settings.sound = false; }")

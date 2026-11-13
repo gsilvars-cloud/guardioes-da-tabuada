@@ -719,6 +719,8 @@ body{--ch:64px;--kh:34px;--hud:17px}
 .pai .teim b{font-family:var(--f-display);font-weight:400;font-size:16px;margin-right:6px}
 .pai .teim small{color:var(--muted);display:block}
 .sheet.wide{max-width:min(94vw,820px);grid-template-columns:1fr}
+
+#sky{position:absolute;inset:0;width:100%;height:100%;display:block}
 </style>
 
 <div class="app" id="app">
@@ -853,6 +855,7 @@ body{--ch:64px;--kh:34px;--hud:17px}
       <div class="bt-side r"><span class="bt-name" id="btFoe" style="text-align:right">Rival<small>Arena 1</small></span><span class="crowns red">🏰<b id="crE">100</b>%</span><button class="bt-pause" id="pauseBtn" type="button" aria-label="Pausar">⏸</button></div>
     </div>
     <div class="bt-arena" id="arenaWrap">
+      <canvas id="sky"></canvas>
       <canvas id="arena" aria-label="Arena de batalha"></canvas>
       <div class="banner" id="banner"></div>
     </div>
@@ -886,6 +889,7 @@ body{--ch:64px;--kh:34px;--hud:17px}
 
 <script src="data/chests.js"></script>
 <script src="data/sprites.js"></script>
+<script src="sky.js"></script>
 <script>
 (() => {
 "use strict";
@@ -1034,6 +1038,7 @@ document.addEventListener('touchmove', e => { if (e.touches && e.touches.length 
 if (window.visualViewport) visualViewport.addEventListener('resize', () => {
   if (visualViewport.scale > 1.02){ const m = document.getElementById('vp'), c = m.content; m.content = c + ',minimum-scale=1'; setTimeout(() => { m.content = c; }, 60); }
 });
+try { GTSKY.init(document.getElementById('sky')); } catch(e) {}
 let S = load();
 try { const raw = localStorage.getItem(SAVE_KEY); if (raw && readSave(SAVE_KEY)) localStorage.setItem(BAK_KEY, raw); } catch(e) {}   // guarda o save bom do começo da sessão
 function save(){ try { localStorage.setItem(SAVE_KEY, JSON.stringify(S)); } catch(e) {} }
@@ -3223,6 +3228,12 @@ function buildBg(key){
 
 function drawBg(){
   const p = B.bgp, bg = B.bg, cam = B.cam, t = B.clock;
+  if (window.GTSKY && GTSKY.ok && S.settings.paint !== true){                       // cenário vivo pintado por código, quadro a quadro
+    B.painted = true; ctx.clearRect(-20, -20, VW + 40, VH + 40);
+    const pim = bgImage(B.st.biome); let rc = null;        // a pintura da ilha entra como textura e ganha vento, nuvens e luz
+    if (pim){ const s = Math.max(VW/pim.naturalWidth, VH/pim.naturalHeight), w = pim.naturalWidth*s, h = pim.naturalHeight*s; rc = [(VW - w)/2/VW, clamp(GY + 22 - (BG_LANES[B.st.biome] || BG_LANE)*h, VH - h, 0)/VH, w/VW, h/VH]; }
+    GTSKY.draw(B.st.biome, 1 - (GY + 22)/VH, VW*SCL, VH*SCL, dpr, pim, rc); return;
+  }
   const im = bgImage(B.st.biome), raw = BG_IMG[B.st.biome], waiting = !im && !(raw && raw.failed);
   B.painted = !!im || waiting;
   if (waiting){                                           // a pintura ainda está chegando: céu liso em vez do cenário antigo desenhado por código
