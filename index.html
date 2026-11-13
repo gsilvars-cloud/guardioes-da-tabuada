@@ -584,8 +584,8 @@ body{--ch:64px;--kh:34px;--hud:17px}
 .btn-boss:active{transform:translateY(2px);border-bottom-width:3px}
 @keyframes bossPulse{50%{box-shadow:0 8px 30px rgba(255,60,80,.75)}}
 .arenabtns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center}
-.arena-card .scene.bosshere{height:96px;display:grid;place-items:center;letter-spacing:0}
-.arena-card .scene .bossimg{height:96px;width:auto;max-width:180px;object-fit:contain;filter:drop-shadow(0 6px 10px rgba(0,0,0,.55)) drop-shadow(0 0 14px rgba(255,60,80,.55));animation:bossFloat 2.4s ease-in-out infinite}
+.arena-card .scene.bosshere{height:72px;display:grid;place-items:center;letter-spacing:0}
+.arena-card .scene .bossimg{height:72px;width:auto;max-width:180px;object-fit:contain;filter:drop-shadow(0 6px 10px rgba(0,0,0,.55)) drop-shadow(0 0 14px rgba(255,60,80,.55));animation:bossFloat 2.4s ease-in-out infinite}
 @keyframes bossFloat{50%{transform:translateY(-4px) scale(1.03)}}
 .trbar.full b{background:linear-gradient(90deg,#ff4d5e,#ffb020);animation:fullpulse 1.2s ease-in-out infinite}
 @keyframes fullpulse{50%{filter:brightness(1.35)}}
@@ -614,6 +614,39 @@ body{--ch:64px;--kh:34px;--hud:17px}
 .intro .by{position:absolute;right:12px;bottom:calc(8px + env(safe-area-inset-bottom,0px));font-size:11px;font-weight:800;color:#ffffffc0;text-shadow:0 1px 3px #000;pointer-events:none}
 @keyframes tappulse{50%{opacity:.5;filter:brightness(1.15)}}
 @keyframes ttlin{from{opacity:0;transform:translateY(-30px) scale(.8)}}
+
+/* ---------- etapa 3: vila do castelo e mapa das ilhas ---------- */
+#home{width:100%;padding-inline:max(16px,calc((100% - 760px)/2));background:linear-gradient(rgba(23,21,59,0) 0,rgba(23,21,59,.05) 30%,rgba(23,21,59,.9) 82%,rgba(23,21,59,.96)),url(assets/cenas/vila.webp) center top/cover no-repeat #17153b}
+#home .logo{font-size:clamp(22px,7vh,34px);text-shadow:0 3px 0 var(--gold-3),0 4px 10px rgba(0,0,0,.6)}
+#home .logo span{text-shadow:0 2px 0 #3d3790,0 3px 8px rgba(0,0,0,.6)}
+#home .pill{background:rgba(18,15,48,.72);backdrop-filter:blur(4px)}
+#home .sec{text-shadow:0 2px 6px rgba(0,0,0,.7)}
+#home .sub{color:#e4e0ff;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+.homegrid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:12px;align-items:end}
+.vila{position:relative;min-height:170px;align-self:stretch}
+.vila .hr{position:absolute;bottom:2px;border:0;background:none;padding:0;transform:translateX(-50%);animation:vbob 2.6s ease-in-out infinite;filter:drop-shadow(0 5px 3px rgba(0,0,0,.4))}
+.vila .hr img{height:clamp(58px,23vh,104px);width:auto;display:block;pointer-events:none}
+.vila .hr.g img{height:clamp(70px,29vh,128px)}
+.vila .hr:nth-child(2n){animation-delay:-.9s}.vila .hr:nth-child(3n){animation-delay:-1.7s}
+@keyframes vbob{50%{transform:translateX(-50%) translateY(-4px)}}
+.vila .balao{position:absolute;left:4px;bottom:calc(clamp(70px,29vh,128px) + 6px);max-width:92%;background:#fff;color:#2a2266;border-radius:14px;padding:6px 11px;font-family:"Patrick Hand","Nunito",cursive;font-weight:400;font-size:clamp(14px,4.4vh,19px);line-height:1.15;box-shadow:0 4px 10px rgba(0,0,0,.35);animation:ttlin .5s cubic-bezier(.2,1.5,.4,1) both}
+.vila .balao::after{content:"";position:absolute;left:26px;bottom:-8px;border:8px solid transparent;border-top-color:#fff;border-bottom:0}
+#home .arena-card{background:linear-gradient(160deg,rgba(60,54,150,.9),rgba(40,36,104,.93));backdrop-filter:blur(6px)}
+.mapa{position:relative;aspect-ratio:1376/768;border-radius:18px;overflow:hidden;border:2px solid var(--line);background:#1f1c4d;box-shadow:0 8px 22px rgba(0,0,0,.4)}
+.mapa canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.mapa .stages{position:absolute;inset:0;display:block;margin:0;padding:0}
+.mapa .stages li{position:absolute;list-style:none;transform:translate(-50%,-50%)}
+.mapa .stage.pin{display:grid;grid-template-columns:none;justify-items:center;gap:1px;width:auto;background:none;border:0;padding:2px;text-align:center}
+.mapa .pin .no{width:clamp(26px,8.5vh,40px);height:clamp(26px,8.5vh,40px);border-radius:50%;font-size:clamp(13px,4.2vh,19px);background:linear-gradient(#69a8ff,#2f6fe0);border:3px solid #fff;box-shadow:0 3px 0 rgba(0,0,0,.4),0 0 0 0 rgba(255,207,63,0);color:#fff}
+.mapa .pin.done .no{background:linear-gradient(#5de39b,#22a866);color:#062b17}
+.mapa .pin.locked{opacity:1}
+.mapa .pin.locked .no{background:#3a3760;border-color:#8a86b8;font-size:clamp(11px,3.4vh,15px)}
+.mapa .pin.sel .no{border-color:var(--gold);box-shadow:0 3px 0 rgba(0,0,0,.4),0 0 0 5px rgba(255,207,63,.45);animation:lvpulse 1.6s ease-in-out infinite}
+.mapa .pin .nm{font-size:clamp(9px,2.9vh,12px);line-height:1.05;color:#fff;background:rgba(18,15,48,.78);border-radius:8px;padding:2px 6px;white-space:nowrap;font-weight:900}
+.mapa .pin .cr{font-size:clamp(8px,2.6vh,11px);letter-spacing:0}
+.mapa .pin .gf{position:absolute;right:-22px;top:-20px;height:clamp(30px,10vh,46px);width:auto;animation:vbob2 1.4s ease-in-out infinite;pointer-events:none;filter:drop-shadow(0 3px 2px rgba(0,0,0,.4))}
+@keyframes vbob2{50%{transform:translateY(-5px)}}
+@media (orientation:portrait){.homegrid{grid-template-columns:1fr}}
 </style>
 
 <div class="app" id="app">
@@ -626,12 +659,16 @@ body{--ch:64px;--kh:34px;--hud:17px}
         <span class="pill tr" title="Troféus">🏆 <b id="trophyVal">0</b></span>
       </div>
     </header>
-    <div class="arena-card" id="arenaCard"></div>
+    <div class="homegrid">
+      <div class="vila" id="vila"></div>
+      <div class="arena-card" id="arenaCard"></div>
+    </div>
     <h2 class="sec">Baús</h2>
     <div class="chests" id="chests"></div>
     <button class="mastery-mini" id="masteryMini" type="button"></button>
-    <h2 class="sec">Arenas</h2>
-    <ol class="stages" id="stages"></ol>
+    <h2 class="sec">Mapa das ilhas</h2>
+    <p class="sub" style="margin-top:-4px">As ilhas ganham cor conforme você domina as contas de cada uma.</p>
+    <div class="mapa"><canvas id="mapaCv"></canvas><ol class="stages" id="stages"></ol></div>
   </section>
 
   <!-- BARALHO -->
@@ -1262,7 +1299,7 @@ const lastStage = () => STAGES.length - 1;
 function focusText(st){
   const fo = S.settings.focus;
   if (fo.length) return 'Foco escolhido pelos pais: tabuada do <b>' + fo.slice().sort((a, b) => a - b).join(' e ') + '</b>';
-  return st.focus.length ? 'Foco desta arena: tabuada do <b>' + st.focus.join(', ') + '</b>' : 'Foco desta arena: <b>todas as tabuadas</b>';
+  return st.focus.length ? 'Foco desta ilha: tabuada do <b>' + st.focus.join(', ') + '</b>' : 'Foco desta ilha: <b>todas as tabuadas</b>';
 }
 const need = id => { const o = S.cards[id]; return o && o.lvl < MAXLVL ? UPG_CARDS[o.lvl] : 0; };
 const canUp = id => { const o = S.cards[id], nd = need(id); return !!(o && nd && o.n >= nd && S.coins >= UPG_COINS[o.lvl]); };
@@ -1312,11 +1349,11 @@ function renderHome(){
   const rematch = !pend && (!top || (final && S.champ));
   $('arenaCard').innerHTML = `
     <span class="scene ${pend ? 'bosshere' : ''}" aria-hidden="true">${pend ? `<img class="bossimg" alt="" src="${SPR[bs.spr][0].src}">` : st.scene}</span>
-    <span class="num">Arena ${S.sel + 1} de ${STAGES.length}</span>
+    <span class="num">Ilha ${S.sel + 1} de ${STAGES.length}</span>
     <h2>${st.name}</h2>
     ${tr}
     ${top ? powerLine(S.sel, pend) : ''}
-    <span class="reward">Vitória: <b>🏆 troféus</b> · <b>🃏 carta</b> · <b>🪙 moedas</b></span>
+    ${pend ? '' : '<span class="reward">Vitória: <b>🏆 troféus</b> · <b>🃏 carta</b> · <b>🪙 moedas</b></span>'}
     <span class="focusline">${focusText(st)}</span>
     <div class="arenabtns">${pend ? `<button class="btn-boss" id="bossBtn" type="button">⚔️ Desafiar ${bs.name}!</button><button class="btn-ghost" id="playBtn" type="button">Treinar (sem troféus)</button>`
       : `<button class="btn-gold" id="playBtn" type="button">Batalhar!</button>${rematch ? '<button class="btn-ghost" id="bossBtn" type="button">👑 Rever o chefão</button>' : ''}`}</div>`;
@@ -1332,15 +1369,48 @@ function renderHome(){
   $('masteryMini').innerHTML = `<span style="font-size:26px">📖</span><span><b>Runas dominadas: ${m} de 55</b><span class="bar"><b style="width:${(m/55*100).toFixed(1)}%"></b></span></span><span style="color:var(--muted)">›</span>`;
   $('stages').innerHTML = STAGES.map((s, i) => {
     const locked = i > S.arena, here = i === S.arena, crowns = S.best[i] || 0, beat = i < S.arena || (i === LAST && S.champ);
-    const prev = STAGES[i - 1];
-    const meta = locked ? `🔒 vença ${CARDS[prev.boss].name}, o chefão de ${prev.name}${s.hero ? ' · chega ' + CARDS[s.hero].name : ''}`
-      : `${here ? '🏆 sua arena' : '🎯 treino'} · ${s.focus.length ? 'tabuada do ' + s.focus.join(', ') : 'todas as tabuadas'}${s.hero ? ' · herói ' + CARDS[s.hero].name : ''} · ${beat ? '✅' : '👑'} ${CARDS[s.boss].name}`;
-    return `<li><button type="button" class="stage ${locked ? 'locked' : ''} ${crowns ? 'done' : ''} ${i === S.sel ? 'sel' : ''}" data-i="${i}" ${locked ? 'aria-disabled="true"' : ''}>
-      <span class="no">${locked ? '🔒' : i + 1}</span>
-      <span><span class="nm">${s.name}</span><br><span class="meta">${meta}</span></span>
-      <span class="cr">${[0,1,2].map(k => `<span class="${k < crowns ? '' : 'off'}">👑</span>`).join('')}</span></button></li>`;
+    const lab = locked ? `${s.name}, trancada: vença ${CARDS[STAGES[i - 1].boss].name}` : `${s.name}${here ? ', sua ilha' : ', treino'}${beat ? ', chefão vencido' : ''}`;
+    return `<li style="left:${(ISLE_UI[i][0]*100).toFixed(1)}%;top:${(ISLE_UI[i][1]*100).toFixed(1)}%"><button type="button" class="stage pin ${locked ? 'locked' : ''} ${crowns ? 'done' : ''} ${i === S.sel ? 'sel' : ''}" data-i="${i}" aria-label="${lab}" ${locked ? 'aria-disabled="true"' : ''}>
+      <span class="no">${locked ? '🔒' : i + 1}</span><span class="nm">${s.name}</span>
+      ${locked ? '' : `<span class="cr">${[0,1,2].map(k => `<span class="${k < crowns ? '' : 'off'}">👑</span>`).join('')}</span>`}${here ? '<img class="gf" alt="" src="assets/grafi/oi.webp">' : ''}</button></li>`;
   }).join('');
+  drawMap(); renderVila(pend, bs);
 }
+// posição de cada ilha na pintura do mapa (frações da imagem)
+const ISLE_UI = [[.18, .71], [.21, .42], [.40, .28], [.56, .67], [.635, .36], [.81, .62], [.80, .23]];
+const MAP_IMG = new Image(); MAP_IMG.src = 'assets/cenas/mapa.webp'; MAP_IMG.onload = () => { if (cur === 'home') drawMap(); };
+// quanto das contas de uma ilha já está aprendido (0 a 1): é o que devolve a cor à ilha
+function isleProgress(i){
+  const fo = STAGES[i].focus, fs = FACTS.filter(f => !fo.length || fo.includes(f.a) || fo.includes(f.b));
+  return fs.reduce((a, f) => a + Math.min(1, stateOf(S.facts[f.key])/4), 0)/fs.length;
+}
+function drawMap(){
+  const cvm = $('mapaCv'), r = cvm.getBoundingClientRect(); if (r.width < 10 || !MAP_IMG.naturalWidth) return;
+  const d = Math.min(window.devicePixelRatio || 1, 2), W = Math.round(r.width*d), H = Math.round(r.height*d), x = cvm.getContext('2d');
+  cvm.width = W; cvm.height = H;
+  if ('filter' in x){ x.filter = 'grayscale(1) brightness(1.06) contrast(.9)'; x.drawImage(MAP_IMG, 0, 0, W, H); x.filter = 'none'; }
+  else { x.drawImage(MAP_IMG, 0, 0, W, H); x.fillStyle = 'rgba(185,186,198,.74)'; x.fillRect(0, 0, W, H); }
+  for (let i = 0; i <= S.arena; i++){
+    const a = .42 + .58*isleProgress(i), cx = ISLE_UI[i][0]*W, cy = ISLE_UI[i][1]*H, R = W*.115;
+    for (let k = 3; k >= 0; k--){
+      x.save(); x.beginPath(); x.ellipse(cx, cy, R*(1 + k*.1), R*.8*(1 + k*.1), 0, 0, 7); x.clip();
+      x.globalAlpha = k === 0 ? a : a*.3; x.drawImage(MAP_IMG, 0, 0, W, H); x.restore();
+    }
+  }
+}
+// a vila: Grafi e os heróis do baralho no gramado do castelo
+function renderVila(pend, bs){
+  const tips = pend ? [`O ${bs.name} está esperando. Vamos lá!`] : S.chests.length ? ['Tem baú para abrir!'] : ORDER.some(canUp) ? ['Tem herói pronto para melhorar!'] :
+    ['Vamos pintar o mundo de novo?', 'Errar é rascunho!', 'Cada conta certa devolve uma cor.', 'Qual tabuada vamos afiar hoje?'];
+  const tip = tips[Math.floor((Date.now()/60000) % tips.length)];
+  $('vila').innerHTML = `<div class="balao">${tip}</div><button type="button" class="hr g" style="left:13%" data-g="1" aria-label="Grafi"><img alt="" src="assets/grafi/${pend ? 'viva' : 'oi'}.webp"></button>`
+    + S.deck.map((id, k) => `<button type="button" class="hr" style="left:${36 + k*17.5}%" data-id="${id}" aria-label="${CARDS[id].name}"><img alt="" src="${SPR[CARDS[id].spr][0].src}"></button>`).join('');
+}
+$('vila').addEventListener('click', e => {
+  const b = e.target.closest('.hr'); if (!b) return; ensureAudio(); sfx('tap');
+  if (b.dataset.id) openCard(b.dataset.id); else speak(($('vila').querySelector('.balao') || {}).textContent || 'Oi!');
+});
+window.addEventListener('resize', () => { if (cur === 'home') drawMap(); });
 $('stages').addEventListener('click', e => {
   const b = e.target.closest('.stage'); if (!b) return;
   const i = +b.dataset.i; if (i > S.arena) { sfx('bad'); return; }
@@ -1359,7 +1429,7 @@ const CHEST = {
   c:    {name:'Baú de Madeira',   tag:'comum',    cards:4,  coins:[30, 50],    newP:.12},
   r:    {name:'Baú Dourado',      tag:'raro',     cards:9,  coins:[90, 130],   newP:.40},
   l:    {name:'Baú de Diamantes', tag:'lendário', cards:18, coins:[260, 360],  newP:.85},
-  arena:{name:'Baú da Arena',  tier:'r', cards:8, coins:[110, 140], newP:0},
+  arena:{name:'Baú da Ilha',  tier:'r', cards:8, coins:[110, 140], newP:0},
   boss: {name:'Baú do Chefão', tier:'l', tag:'chefão', cards:14, coins:[200, 260], newP:.45},
   free: {name:'Baú do Dia',    tier:'c', cards:3, coins:[20, 35],   newP:.08},
 };
@@ -1412,7 +1482,7 @@ function renderChests(){
   const free = S.freeDay !== dayNum();
   const items = S.chests.map(c => `<button type="button" class="chest-btn t-${c.type} tr-${tierOf(c)}" data-k="${c.id}"><span class="mc">${chestPic(tierOf(c))}</span><b>${chestDef(c).name}</b><small>Toque para abrir</small></button>`);
   if (free) items.push(`<button type="button" class="chest-btn t-free" data-k="free"><span class="mc">${chestPic('c')}</span><b>${CHEST.free.name}</b><small>De graça! Toque</small></button>`);
-  items.push(`<div class="chest-info">${streakPips()}<span><b>${S.streak % STREAK_CHEST}</b> de ${STREAK_CHEST} vitórias seguidas — na ${STREAK_CHEST}ª você ganha um <b>baú surpresa</b> 🎁 (madeira, dourado ou diamantes)${S.sel < S.arena ? ' (conta só na sua arena)' : ''}</span></div>`);
+  items.push(`<div class="chest-info">${streakPips()}<span><b>${S.streak % STREAK_CHEST}</b> de ${STREAK_CHEST} vitórias seguidas — na ${STREAK_CHEST}ª você ganha um <b>baú surpresa</b> 🎁 (madeira, dourado ou diamantes)${S.sel < S.arena ? ' (conta só na sua ilha)' : ''}</span></div>`);
   $('chests').innerHTML = items.join('');
 }
 $('chests').addEventListener('click', e => {
@@ -1458,7 +1528,7 @@ function cardHTML(id, extra){
   const c = CARDS[id], own = S.cards[id], bd = bandOfCard(id), lv = own ? own.lvl : 0, nd = need(id), can = own && nd && own.n >= nd;
   return `<button type="button" class="card dk b${bd} ${own ? 'l' + lv : 'locked'} ${can ? 'can' : ''} ${extra || ''}" data-id="${id}" aria-label="${c.name}${own ? ', nível ' + lv : ', bloqueado'}, custo ${c.cost}, runa de ${BAND_NAME[bd]}">
     <span class="cost">${c.cost}</span>${heroIcon(id)}${own ? `<span class="lvb l${lv}">${lv}</span>` : ''}${lv >= 4 ? '<span class="spk">✦</span>' : ''}<span class="nm">${c.name}</span>
-    ${own ? `<span class="prog ${nd ? '' : 'max'}"><i style="width:${nd ? Math.min(100, own.n/nd*100) : 100}%"></i><em>${nd ? own.n + '/' + nd : 'MÁX'}</em></span>${can ? '<span class="upar">⬆</span>' : ''}` : `<span class="lock">🔒<small>Arena ${c.arena + 1}</small></span>`}</button>`;
+    ${own ? `<span class="prog ${nd ? '' : 'max'}"><i style="width:${nd ? Math.min(100, own.n/nd*100) : 100}%"></i><em>${nd ? own.n + '/' + nd : 'MÁX'}</em></span>${can ? '<span class="upar">⬆</span>' : ''}` : `<span class="lock">🔒<small>Ilha ${c.arena + 1}</small></span>`}</button>`;
 }
 function renderDeck(){
   refreshCoins(); refreshBadges();
@@ -1495,7 +1565,7 @@ function openCard(id, up){
   let acts = '', prog = '';
   if (!own){
     const ar = STAGES[c.arena];
-    acts = `<p class="desc" style="color:var(--gold)">🔒 ${c.arena === 0 ? 'Aparece nos baús.' : `Chega com a <b>Arena ${c.arena + 1}</b> (${ar.name}): quem vence o chefão da arena anterior ganha este herói num baú.`} ${S.arena >= c.arena ? 'Já pode vir em qualquer baú!' : `Falta vencer ${CARDS[STAGES[c.arena - 1].boss].name}, o chefão de ${STAGES[c.arena - 1].name}.`}</p>`;
+    acts = `<p class="desc" style="color:var(--gold)">🔒 ${c.arena === 0 ? 'Aparece nos baús.' : `Chega com a <b>Ilha ${c.arena + 1}</b> (${ar.name}): quem vence o chefão da ilha anterior ganha este herói num baú.`} ${S.arena >= c.arena ? 'Já pode vir em qualquer baú!' : `Falta vencer ${CARDS[STAGES[c.arena - 1].boss].name}, o chefão de ${STAGES[c.arena - 1].name}.`}</p>`;
   } else {
     const nd = need(id), cost = UPG_COINS[lvl], hasC = own.n, coinsOk = S.coins >= cost, can = more && hasC >= nd && coinsOk;
     prog = `<div class="needrow"><span class="pg bigbar ${more ? '' : 'max'}"><i style="width:${more ? Math.min(100, hasC/nd*100) : 100}%"></i><em>${more ? '🃏 ' + hasC + ' / ' + nd : 'Nível máximo'}</em></span></div>`;
@@ -2384,14 +2454,14 @@ function renderEnd(E){
     : !E.top ? '<p class="reward-line" style="margin:0">🎯 Treino: sem troféus</p>'
     : `<div class="trline ${E.dTr > 0 ? 'up' : E.dTr < 0 ? 'down' : ''}"><b>🏆 ${E.dTr > 0 ? '+' : ''}${E.dTr}</b> <span>${S.trophies}${S.champ && S.arena === LAST ? '' : ' / ' + hi}</span></div>
        ${S.champ && S.arena === LAST ? '' : `<span class="trbar ${gateNow ? 'full' : ''}"><b style="width:${Math.max(0, Math.min(100, (S.trophies - lo)/(hi - lo)*100)).toFixed(1)}%"></b><em>${gateNow ? '⚔️ O chefão te espera!' : 'Chefão: ' + CARDS[STAGES[S.arena].boss].name}</em></span>`}
-       ${E.lost && E.dTr === 0 ? '<small style="color:var(--muted)">Você não cai de arena!</small>' : ''}`;
+       ${E.lost && E.dTr === 0 ? '<small style="color:var(--muted)">Você não perde a ilha!</small>' : ''}`;
   const left = STREAK_CHEST - S.streak % STREAK_CHEST;
   const streak = !E.top || E.boss ? '' : E.won ? `<div class="stk">${streakPips()}<span>${E.gotChest ? `<b style="color:var(--gold)">${CHEST[E.gotChest].name} ganho! 🎁</b>` : `Mais ${left} vitória${left > 1 ? 's' : ''} seguida${left > 1 ? 's' : ''} para um baú surpresa`}</span></div>`
     : E.lost && E.prevStreak ? '<div class="stk"><span>A sequência de vitórias recomeça. Bora de novo!</span></div>' : '';
-  const gateMsg = gateNow && E.won ? `<div class="newarena boss">⚔️ <b>${CARDS[STAGES[S.arena].boss].name}</b> apareceu! Volte ao menu e desafie o chefão da arena.</div>` : '';
+  const gateMsg = gateNow && E.won ? `<div class="newarena boss">⚔️ <b>${CARDS[STAGES[S.arena].boss].name}</b> apareceu! Volte ao menu e desafie o chefão da ilha.</div>` : '';
   const bossMsg = E.bossBeat ? (E.champ ? `<div class="newarena boss">👑 <b>Você derrotou o ${E.bossName}!</b><br>Todos os chefões caíram: você é o <b>Campeão dos Guardiões da Tabuada</b>! Abra o <b>Baú do Chefão</b>.</div>`
       : `<div class="newarena boss">👑 <b>${E.bossName} foi derrotado!</b><br>Abra o <b>Baú do Chefão</b>.</div>`) : '';
-  const arena = E.newArena >= 0 ? `<div class="newarena">🔓 <b>${STAGES[E.newArena].name}</b> aberta!${STAGES[E.newArena].hero ? `<br>${CARDS[STAGES[E.newArena].hero].name} chegou: abra o <b>Baú da Arena</b> para recebê-la antes da próxima batalha.` : ''}</div>` : '';
+  const arena = E.newArena >= 0 ? `<div class="newarena">🔓 <b>${STAGES[E.newArena].name}</b> aberta!${STAGES[E.newArena].hero ? `<br>${CARDS[STAGES[E.newArena].hero].name} chegou: abra o <b>Baú da Ilha</b> para recebê-la antes da próxima batalha.` : ''}</div>` : '';
   const pend = S.chests.length;
   const hint = E.boss && E.lost ? `<p class="grafi" style="margin:0;font-size:18px;color:#ffeab0">💡 Dica: melhore seus heróis no <b>Baralho</b> e foque os tiros no chefão com quem atira de longe.</p>` : '';
   $('endOv').innerHTML = `<div class="eo"><div class="eo-l">
@@ -3438,7 +3508,7 @@ else { window.__introOn = true; show('home'); INTRO.logo(); }
 requestAnimationFrame(loop);
 
 // gancho de teste (sem efeito no jogo)
-window.__GT = {get B(){ return B; }, get S(){ return S; }, SAVE_KEY, INTRO, music, mus, splat, say, grafi, hitStop, startBattle, simStep, battleTick, aiUpdate, CARDS, STAGES, ARENA_AT, gateAt, LAST, RAMP, BOSS_LVL, rivalAt, bossPending, spawnBoss, SPECIAL, applySlow, stunU, deckAvg, deploy, spawnHero, FACTS, pickRune, recordAnswer, recordSeen, stateOf, bandOfFact, bandOfCard, rowMasteryTable, qualOf, adaptShift, falaConta, numPT, tipFor, makeOptions, dayNum, checkAnswer, openQuiz, finishOk, renderQuiz, isDue, save, renderArena, endMatch, selectSlot, dealDamage, pose, SPR, LW, GY, measureArena, worldFor, setWorld, rollChest, rollTier, CHEST, CHEST_ODDS, applyChest, openChest, openAll, showEnd, renderHome, renderDeck, openCard, show, need, canUp, pickW, grantArenaChests, load, get END(){ return END; }};
+window.__GT = {get B(){ return B; }, get S(){ return S; }, SAVE_KEY, drawMap, isleProgress, INTRO, music, mus, splat, say, grafi, hitStop, startBattle, simStep, battleTick, aiUpdate, CARDS, STAGES, ARENA_AT, gateAt, LAST, RAMP, BOSS_LVL, rivalAt, bossPending, spawnBoss, SPECIAL, applySlow, stunU, deckAvg, deploy, spawnHero, FACTS, pickRune, recordAnswer, recordSeen, stateOf, bandOfFact, bandOfCard, rowMasteryTable, qualOf, adaptShift, falaConta, numPT, tipFor, makeOptions, dayNum, checkAnswer, openQuiz, finishOk, renderQuiz, isDue, save, renderArena, endMatch, selectSlot, dealDamage, pose, SPR, LW, GY, measureArena, worldFor, setWorld, rollChest, rollTier, CHEST, CHEST_ODDS, applyChest, openChest, openAll, showEnd, renderHome, renderDeck, openCard, show, need, canUp, pickW, grantArenaChests, load, get END(){ return END; }};
 })();
 </script>
 <script>
