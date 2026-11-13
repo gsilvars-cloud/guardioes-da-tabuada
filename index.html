@@ -3204,7 +3204,7 @@ const BG_IMG = {};
 const BG_LANE = .715;                                   // fração da altura da pintura onde fica a pista
 const BG_LANES = {campo:.775, pantano:.79, vulcao:.8, arcano:.8, neve:.78};                          // pinturas novas (aquarela) têm a estrada em outra altura
 function bgImage(key){
-  if (!(key in BG_IMG)){ const im = new Image(); im.src = 'assets/bg/' + key + '.webp'; BG_IMG[key] = im; }
+  if (!(key in BG_IMG)){ const im = new Image(); im.onerror = () => { im.failed = true; }; im.src = 'assets/bg/' + key + '.webp'; BG_IMG[key] = im; }
   const im = BG_IMG[key]; return im.complete && im.naturalWidth ? im : null;
 }
 function buildBg(key){
@@ -3223,8 +3223,12 @@ function buildBg(key){
 
 function drawBg(){
   const p = B.bgp, bg = B.bg, cam = B.cam, t = B.clock;
-  const im = bgImage(B.st.biome);
-  B.painted = !!im;
+  const im = bgImage(B.st.biome), raw = BG_IMG[B.st.biome], waiting = !im && !(raw && raw.failed);
+  B.painted = !!im || waiting;
+  if (waiting){                                           // a pintura ainda está chegando: céu liso em vez do cenário antigo desenhado por código
+    const g0 = ctx.createLinearGradient(0, 0, 0, VH); g0.addColorStop(0, p.sky[0]); g0.addColorStop(.66, p.sky[1]); g0.addColorStop(.7, p.grass); g0.addColorStop(1, p.grass);
+    ctx.fillStyle = g0; ctx.fillRect(-4, -4, VW + 8, VH + 8); return;
+  }
   if (im){
     const s = Math.max(VW/im.naturalWidth, VH/im.naturalHeight), w = im.naturalWidth*s, h = im.naturalHeight*s;
     ctx.drawImage(im, (VW - w)/2, clamp(GY + 22 - (BG_LANES[B.st.biome] || BG_LANE)*h, VH - h, 0), w, h);
@@ -4091,6 +4095,7 @@ const INTRO = (() => {
 $('introAgain').onclick = () => { ensureAudio(); sfx('tap'); INTRO.cine(() => show('settings')); };
 
 // começo: logo do estúdio e tela de título (em teste automático vai direto ao menu)
+for (let i = 0; i <= Math.min(STAGES.length - 1, S.arena + 1); i++) bgImage(STAGES[i].biome);   // já deixa as pinturas das ilhas abertas carregadas
 if (navigator.webdriver || /[?&]direto/.test(location.search)) show('home');
 else { window.__introOn = true; show('home'); INTRO.logo(); }
 requestAnimationFrame(loop);
