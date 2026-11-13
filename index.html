@@ -2625,6 +2625,13 @@ function resizeArena(){
 }
 new ResizeObserver(resizeArena).observe($('arenaWrap'));
 
+// cenário pintado de cada ilha (assets/bg/<bioma>.webp); sem a imagem, vale o cenário desenhado por código
+const BG_IMG = {};
+const BG_LANE = .715;                                   // fração da altura da pintura onde fica a pista
+function bgImage(key){
+  if (!(key in BG_IMG)){ const im = new Image(); im.src = 'assets/bg/' + key + '.webp'; BG_IMG[key] = im; }
+  const im = BG_IMG[key]; return im.complete && im.naturalWidth ? im : null;
+}
 function buildBg(key){
   const p = BIOMES[key] || BIOMES.campo;
   let seed = 11 + B.si*37;
@@ -2641,6 +2648,13 @@ function buildBg(key){
 
 function drawBg(){
   const p = B.bgp, bg = B.bg, cam = B.cam, t = B.clock;
+  const im = bgImage(B.st.biome);
+  B.painted = !!im;
+  if (im){
+    const s = Math.max(VW/im.naturalWidth, VH/im.naturalHeight), w = im.naturalWidth*s, h = im.naturalHeight*s;
+    ctx.drawImage(im, (VW - w)/2, clamp(GY + 22 - BG_LANE*h, VH - h, 0), w, h);
+    return;
+  }
   const g = ctx.createLinearGradient(0, 0, 0, GY + 10); g.addColorStop(0, p.sky[0]); g.addColorStop(1, p.sky[1]);
   ctx.fillStyle = g; ctx.fillRect(-4, -4, VW + 8, VH + 8);
   if (p.stars) for (const s of bg.stars){ ctx.globalAlpha = .45 + .45*Math.sin(t*1.6 + s.ph); ctx.fillStyle = '#fff'; ctx.fillRect((s.x - cam*.05) % VW, s.y, s.s, s.s); }
@@ -2682,6 +2696,7 @@ function drawBg(){
 }
 function drawGround(){
   const p = B.bgp, cam = B.cam;
+  if (B.painted) return;                                // a pintura já traz o chão
   // mundo: já transladado em -cam
   const x0 = cam - 30, x1 = cam + VW + 30;
   const g = ctx.createLinearGradient(0, GY - 6, 0, GY + 56); g.addColorStop(0, p.top); g.addColorStop(.18, p.grass); g.addColorStop(1, p.grass);
